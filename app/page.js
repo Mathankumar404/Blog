@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
     .then((res) => res.json() )
-    .then(res => setPosts(res.posts || []))
+    .then(res => setPosts(res || []))
     console.log(posts)
   },[]);
 
@@ -24,7 +24,7 @@ export default function Home() {
     // setTimeout(() => {
         fetch(process.env.NEXT_PUBLIC_API_URL+'/posts?q='+inputRef.current.value)
       .then((res) => res.json() )
-      .then(res => setPosts(res.posts || []))
+      .then(res => setPosts(res || []))
       .finally(() => setSearch(false))
     // }, 2000)
     
