@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
     .then((res) => res.json() )
-    .then(res => setPosts(res.posts || []))
+    .then(res => setPosts(res.posts || []);console.log(res))
   },[]);
 
   const searchPost = (e) => {
