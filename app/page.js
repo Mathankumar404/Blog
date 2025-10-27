@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
     .then((res) => res.json() )
-    .then(res => setPosts(res))
+    .then(res => setPosts(res.posts || []))
   },[]);
 
   const searchPost = (e) => {
@@ -23,7 +23,7 @@ export default function Home() {
     // setTimeout(() => {
         fetch(process.env.NEXT_PUBLIC_API_URL+'/posts?q='+inputRef.current.value)
       .then((res) => res.json() )
-      .then(res => setPosts(res))
+      .then(res => setPosts(res.posts || []))
       .finally(() => setSearch(false))
     // }, 2000)
     
@@ -40,7 +40,7 @@ export default function Home() {
         <button onClick={searchPost} disabled={search} className="px-4 py-2 bg-blue-500 text-white rounded-md ml-4">{search?'...':'Search'}</button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {posts && posts.map((post) => (
+        {Array.isArray(posts) && posts.map((post) => (
           <Link href={"/post/"+post._id}>
             <div className="border border-gray-200 p-4">
               <img className="w-full h-48 object-cover mb-4" src={post.image} alt="Post Image" />
